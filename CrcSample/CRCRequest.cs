@@ -35,11 +35,19 @@ namespace CrcSample
             {
                 string req = (useObject) ? JsonConvert.SerializeObject(QueryParams).Replace('"','\'') : Request; 
                 string qry = string.Format("{{\n\t\"Request\": \"{0}\",\n\t\"UserName\":\"{1}\",\n\t\"Password\":\"{2}\"\n}}", req, Username, Password);
+                //qry = qry.Replace("SEARCHTYPE", "SEARCH-TYPE");
                 var content = new StringContent(qry, Encoding.UTF8, "application/json");
-               
-                var result = await client.PostAsync(Url, content);
-                stringResult = await result.Content.ReadAsStringAsync();
-                obj = JsonConvert.DeserializeObject<CRCResponse>(stringResult);
+                try
+                {
+                    var result = await client.PostAsync(Url, content);
+                    stringResult = await result.Content.ReadAsStringAsync();
+                    obj = JsonConvert.DeserializeObject<CRCResponse>(stringResult);
+                }
+                catch (Exception e) {
+                    throw e;
+                }
+                
+
             }
             return obj;
         }
