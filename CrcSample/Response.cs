@@ -7,6 +7,7 @@ namespace CrcSample
     public class CRCResponse
     {
         public Consumerhitresponse ConsumerHitResponse { get; set; }
+        public ErrorResponse ErrorResponse { get; set; } = null;
     }
 
     public class Consumerhitresponse
